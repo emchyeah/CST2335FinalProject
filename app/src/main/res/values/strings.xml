@@ -5,6 +5,10 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <string name="textDateMessage">Pick a date</string>
+    <string name="pick_date">something here</string>
+
+    <!--  item names  -->
     <string name="item1">Spaceship</string>
     <string name="item2">Earth</string>
 
