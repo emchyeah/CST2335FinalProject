@@ -36,8 +36,7 @@ public class NameActivity extends AppCompatActivity {
         });
 
         //creates the intent to go to next activity
-        Intent intent = new Intent(this, NameActivity.class);
-                //TODO need to make next activity to replace NameActivity.class
+        Intent intent = new Intent(this, SpaceListActivity.class);
         pix = findViewById(R.id.Space);
         //button click goes to the next activity
         pix.setOnClickListener(click -> startActivity(intent));

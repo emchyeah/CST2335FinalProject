@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\meiga\.android\avd\Nexus_5_API_30.avd" />
+            <value value="C:\Users\dlong\.android\avd\Nexus_5_API_28_1.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-11-29T00:27:16.459738500Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-11-27T19:08:16.400646800Z" />
   </component>
 </project>
