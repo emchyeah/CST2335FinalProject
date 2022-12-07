@@ -140,10 +140,10 @@ public class DatePicker extends BaseActivity {
             String parseUrl = baseUrl + apiKey + "&date=" + ymd;
             Log.d("onDateSet()",parseUrl);
 
+            // execute async task after date is picked
             NASA nasa = new NASA();
-//                using random cat image because NASA JSON is slow
-            nasa.execute("https://cataas.com/cat?json=true");
-//                nasa.execute(parseUrl);
+            nasa.execute(parseUrl);
+            // nasa.execute("https://cataas.com/cat?json=true");
         };
 
         Calendar cal = Calendar.getInstance();
@@ -229,6 +229,7 @@ public class DatePicker extends BaseActivity {
 //    parses through the NASA image of the date selected JSON
     private class NASA extends AsyncTask<String, Integer, String> {
 
+    // set up progress bar max
     @Override
     protected void onPreExecute() {
         progressBar.setMax(50);
@@ -248,14 +249,9 @@ public class DatePicker extends BaseActivity {
                 JSONObject obj = new JSONObject(result);
 
 //                get JSON details
-//                using random cat image, remember to change these back to NASA
-                String date = obj.getString("createdAt");
-                String url = obj.getString("url");
-                url = "https://cataas.com"+url;
-                String title = obj.getString("_id");
-//                String date = obj.getString("date");
-//                String url = obj.getString("hdurl");
-//                String title = obj.getString("title");
+                String date = obj.getString("date");
+                String url = obj.getString("hdurl");
+                String title = obj.getString("title");
 
 //                log JSON details
                 Log.d("NASA", date);
@@ -268,7 +264,7 @@ public class DatePicker extends BaseActivity {
                 cValues.put(DatabaseHelper.COL_TITLE, title);
                 long newId = db.insert(DatabaseHelper.TABLE_NAME, null, cValues);
 
-
+                // increment progress by 1 and sleep for 10 milliseconds
                 for (int i=0;i<50;i++) {
                     try {
                         progressBar.incrementProgressBy(1);
