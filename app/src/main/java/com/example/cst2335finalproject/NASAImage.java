@@ -6,12 +6,14 @@ public class NASAImage  {
     private String date;
     private String url;
     private String title;
+    private long id;
 
 //    constructor
-    public NASAImage(String date, String url, String title) {
+    public NASAImage(String date, String url, String title, long id) {
         this.date = date;
         this.url = url;
         this.title = title;
+        this.id = id;
     }
 
 //    getter methods
@@ -25,5 +27,9 @@ public class NASAImage  {
 
     public String getTitle() {
         return title;
+    }
+
+    public long getId() {
+        return id;
     }
 }

@@ -1,9 +1,15 @@
 package com.example.cst2335finalproject;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +19,7 @@ public class DetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         TextView date;
         TextView url;
@@ -36,9 +42,27 @@ public class DetailsFragment extends Fragment {
 
         // sets the information to the text areas
         date.setText(imageDate);
-        url.setText(imageUrl);
         title.setText(imageTitle);
+
+        // identifying the url
+        SpannableString spannableString = new SpannableString(imageUrl);
+        // method to open the browser and travel to the image url
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(imageUrl));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        };
+        // makes the url clickable
+        spannableString.setSpan(clickableSpan, 0, imageUrl.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        url.setText(spannableString);
+        url.setMovementMethod(LinkMovementMethod.getInstance());
 
         return view;
     }
+
+
 }

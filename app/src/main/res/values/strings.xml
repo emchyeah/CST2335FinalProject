@@ -2,12 +2,16 @@
     <string name="app_name">CST2335</string>
     <string name="welcome">Welcome page</string>
 
+    <!--  open/close navigation  -->
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <!--  alert message  -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="alertTitle">Remove this image?</string>
 
+    <!--  date picker  -->
     <string name="textDateMessage">Pick a date</string>
 
     <!--  item names  -->
@@ -21,6 +25,6 @@
 
     <!--  fragment strings  -->
     <string name="fragmentDate">Date:</string>
-    <string name="fragmentUrl">Url:</string>
+    <string name="fragmentUrl">URL:</string>
     <string name="fragmentTitle">Title:</string>
 </resources>

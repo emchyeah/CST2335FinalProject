@@ -1,25 +1,25 @@
 package com.example.cst2335finalproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
+
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,10 +33,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
-
-
-
 public class DatePicker extends BaseActivity {
 
     private DatePickerDialog datePickerDialog;
@@ -44,7 +40,10 @@ public class DatePicker extends BaseActivity {
     private List<NASAImage> imageList = new ArrayList<>();
     private Adapter adapter;
     private ProgressBar progressBar;
-    private String yes, no;
+    private String yes, no, alertTitle;
+    private DatabaseHelper dbHelper;
+    private SQLiteDatabase db;
+    private ContentValues cValues = new ContentValues();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,23 +55,34 @@ public class DatePicker extends BaseActivity {
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
 
+        // setting up the listview and listening for changes
         ListView listView = findViewById(R.id.listView);
         adapter = new Adapter();
         listView.setAdapter(adapter);
 
+        // setup progress bar
         progressBar = findViewById(R.id.progressBar);
 
+        // strings for the alert
         yes = getString(R.string.yes);
         no = getString(R.string.no);
+        alertTitle = getString(R.string.alertTitle);
+
+        // initialize database
+        dbHelper = new DatabaseHelper(this);
+        db = dbHelper.getWritableDatabase();
+        dbHelper.onCreate(db);
+
+        // load from database
+        loadData();
 
         // upon clicking an item in the listview
         listView.setOnItemClickListener((adapterView, view, pos, l) -> {
-            FrameLayout fragmentContainer = findViewById(R.id.fragmentContainer);
 
-            // gets image position
+            // return image position
             NASAImage nasaImage = imageList.get(pos);
 
-            // gathers information of that image
+            // gather information of nasaImage
             Bundle b = new Bundle();
             b.putString("DATE", nasaImage.getDate());
             b.putString("TITLE", nasaImage.getTitle());
@@ -88,18 +98,19 @@ public class DatePicker extends BaseActivity {
         listView.setOnItemLongClickListener((p, b, pos, id) -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
+            // get nasaImage position within the list
             NASAImage nasaImage = imageList.get(pos);
 
             // alert title
-            alert.setTitle("Remove this image?")
+            alert.setTitle(alertTitle)
                     // message
                     .setMessage(nasaImage.getTitle())
                     // yes button to delete nasaImage
                     .setPositiveButton(yes, (click, arg) -> {
-                        // delete item here
-                        // to do
-                        // create database
-                        // create delete method
+                        // delete item and update database
+                        deleteImage(nasaImage);
+                        imageList.remove(nasaImage);
+                        adapter.notifyDataSetChanged();
                     })
                     // no button to not delete nasaImage, does nothing
                     .setNegativeButton(no, (click, arg) -> {})
@@ -113,29 +124,26 @@ public class DatePicker extends BaseActivity {
 
     // initializes the date picker
     private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(android.widget.DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String stringMonth  = getMonthFormat(month);
-                String date = makeDateString(year, stringMonth, day);
-                String ymd = makeYMD(year, month, day);
-                dateButton.setText(date);
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            month = month + 1;
+            String stringMonth  = getMonthFormat(month);
+            String date = makeDateString(year, stringMonth, day);
+            String ymd = makeYMD(year, month, day);
+            dateButton.setText(date);
 
-                // NASA api url
-                final String baseUrl = "https://api.nasa.gov/planetary/apod?api_key=";
-                // generated NASA api key
-                final String apiKey = "SUmqddAa2liUbdkcKxHvt2Umf2A6Z1a8rNuGkJsc";
-                // url to NASA image of the day JSON file
-                // with the chosen date
-                String parseUrl = baseUrl + apiKey + "&date=" + ymd;
-                Log.d("onDateSet()",parseUrl);
+            // NASA api url
+            final String baseUrl = "https://api.nasa.gov/planetary/apod?api_key=";
+            // generated NASA api key
+            final String apiKey = "SUmqddAa2liUbdkcKxHvt2Umf2A6Z1a8rNuGkJsc";
+            // url to NASA image of the day JSON file
+            // with the chosen date
+            String parseUrl = baseUrl + apiKey + "&date=" + ymd;
+            Log.d("onDateSet()",parseUrl);
 
-                NASA nasa = new NASA();
-//                using cat random cat image because NASA JSON is slow
-                nasa.execute("https://cataas.com/cat?json=true");
-
-            }
+            NASA nasa = new NASA();
+//                using random cat image because NASA JSON is slow
+            nasa.execute("https://cataas.com/cat?json=true");
+//                nasa.execute(parseUrl);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -156,7 +164,7 @@ public class DatePicker extends BaseActivity {
     // date minimum is 1995-06-16
     private long minDate() {
         Calendar cal = Calendar.getInstance();
-        cal.set(1995,05,16);
+        cal.set(1995,5,16);
         return cal.getTimeInMillis();
     }
 
@@ -174,14 +182,12 @@ public class DatePicker extends BaseActivity {
     // turns the date into the format yyyy-mmm-dd
     // month is a three letter abbreviation
     private String makeDateString(int year, String month, int day) {
-        String formattedDate = month+" "+day+" "+year;
-        return formattedDate;
+        return month+" "+day+" "+year;
     }
 
     // format date into yyyy-mm-dd
     private String makeYMD(int year, int month, int day) {
-        String formattedDate = year+"-"+month+"-"+day;
-        return formattedDate;
+        return year+"-"+month+"-"+day;
     }
 
     // formats the month into a three letter abbreviation
@@ -234,24 +240,31 @@ public class DatePicker extends BaseActivity {
                 String result = parser(response);
                 JSONObject obj = new JSONObject(result);
 
-//                log JSON result
-                Log.d("NASA 3 ", result);
-
 //                get JSON details
 //                using random cat image, remember to change these back to NASA
                 String date = obj.getString("createdAt");
                 String url = obj.getString("url");
+                url = "https://cataas.com"+url;
                 String title = obj.getString("_id");
-
-//                create NASAImage object
-                NASAImage nasaImage = new NASAImage(date, url, title);
-                imageList.add(nasaImage);
+//                String date = obj.getString("date");
+//                String url = obj.getString("hdurl");
+//                String title = obj.getString("title");
 
 //                log JSON details
                 Log.d("NASA", date);
                 Log.d("NASA", url);
                 Log.d("NASA", title);
 
+                // prepare JSON details and insert into database
+                cValues.put(DatabaseHelper.COL_DATE, date);
+                cValues.put(DatabaseHelper.COL_URL, url);
+                cValues.put(DatabaseHelper.COL_TITLE, title);
+                long newId = db.insert(DatabaseHelper.TABLE_NAME, null, cValues);
+
+                // create object from JSON details
+                // and put the object into imageList
+                NASAImage nasaImage = new NASAImage(date, url, title, newId);
+                imageList.add(nasaImage);
             }
             catch (IOException e) {
                 Log.d("NASA","Issue with request/response");
@@ -283,9 +296,7 @@ public class DatePicker extends BaseActivity {
 //    send request to host
     public InputStream request (String x) throws IOException {
         URL url = new URL(x);
-        Log.d("input stream", x);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        Log.d("input stream", "AAAAAAAA");
         return connection.getInputStream();
     }
 
@@ -293,9 +304,9 @@ public class DatePicker extends BaseActivity {
     public String parser(InputStream response) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(response));
         StringBuilder sb = new StringBuilder();
-        String line = null;
+        String line;
         while((line = br.readLine()) !=null) {
-            sb.append(line+ "\n");
+            sb.append(line);
         }
         return sb.toString();
     }
@@ -330,5 +341,48 @@ public class DatePicker extends BaseActivity {
             return v;
         }
     }
+
+    // method to delete image from database
+    private void deleteImage(NASAImage i) {
+        db.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.COL_ID+"= ?", new String[] {Long.toString(i.getId())});
+    }
+
+    // load data from database
+    private void loadData() {
+        dbHelper = new DatabaseHelper(this);
+        db = dbHelper.getWritableDatabase();
+
+        // identify columns in database
+        String [] columns = {DatabaseHelper.COL_ID,
+                DatabaseHelper.COL_DATE,
+                DatabaseHelper.COL_URL,
+                DatabaseHelper.COL_TITLE};
+
+        // set cursor
+        Cursor cursor = db.query(false, DatabaseHelper.TABLE_NAME, columns,
+                null, null, null, null, null, null);
+
+        // index columns
+        int idColumn = cursor.getColumnIndex(DatabaseHelper.COL_ID);
+        int dateColumn = cursor.getColumnIndex(DatabaseHelper.COL_DATE);
+        int urlColumn = cursor.getColumnIndex(DatabaseHelper.COL_URL);
+        int titleColumn = cursor.getColumnIndex(DatabaseHelper.COL_TITLE);
+
+        // loop through database
+        while(cursor.moveToNext()) {
+            // gather information from database
+            long id = cursor.getLong(idColumn);
+            String date = cursor.getString(dateColumn);
+            String url = cursor.getString(urlColumn);
+            String title = cursor.getString(titleColumn);
+
+            // put information into nasaImage object
+            // and put that object into imageList
+            imageList.add(new NASAImage(date, url, title, id));
+        }
+        // close cursor
+        cursor.close();
+    }
+
 
 }
