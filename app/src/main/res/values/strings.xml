@@ -1,9 +1,26 @@
 <resources>
-    <string name="app_name">CST2335FinalProject</string>
-    <string name="Welcome">Hello! Welcome to our app!</string>
-    <string name="name">What is your name?</string>
-    <string name="button">Click!</string>
-    <string name="Hello">Hello, </string>
-    <string name="Space">Space Pix!</string>
-    <string name="ChangeName">Change Name</string>
+    <string name="app_name">CST2335</string>
+    <string name="welcome">Welcome page</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="textDateMessage">Pick a date</string>
+
+    <!--  item names  -->
+    <string name="item1">Spaceship</string>
+    <string name="item2">Earth</string>
+
+    <!--  names in navigation drawer  -->
+    <string name="actionHome">Home</string>
+    <string name="actionDatePicker">Pick a date</string>
+    <string name="actionExit">Exit app</string>
+
+    <!--  fragment strings  -->
+    <string name="fragmentDate">Date:</string>
+    <string name="fragmentUrl">Url:</string>
+    <string name="fragmentTitle">Title:</string>
 </resources>
