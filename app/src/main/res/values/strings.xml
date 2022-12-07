@@ -5,8 +5,10 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <string name="textDateMessage">Pick a date</string>
-    <string name="pick_date">something here</string>
 
     <!--  item names  -->
     <string name="item1">Spaceship</string>
@@ -16,4 +18,9 @@
     <string name="actionHome">Home</string>
     <string name="actionDatePicker">Pick a date</string>
     <string name="actionExit">Exit app</string>
+
+    <!--  fragment strings  -->
+    <string name="fragmentDate">Date:</string>
+    <string name="fragmentUrl">Url:</string>
+    <string name="fragmentTitle">Title:</string>
 </resources>

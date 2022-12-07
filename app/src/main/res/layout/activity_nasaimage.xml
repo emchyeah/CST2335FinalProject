@@ -15,4 +15,14 @@
         app:layout_constraintLeft_toLeftOf="parent">
     </TextView>
 
+    <TextView
+        android:id="@+id/imageDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/imageTitle"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </TextView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

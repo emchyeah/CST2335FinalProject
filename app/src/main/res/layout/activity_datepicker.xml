@@ -51,6 +51,13 @@
                 android:layout_height="match_parent">
             </ListView>
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom">
+            </ProgressBar>
+
         </LinearLayout>
 
         <com.google.android.material.navigation.NavigationView

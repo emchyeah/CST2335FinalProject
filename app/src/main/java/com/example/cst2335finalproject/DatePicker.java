@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,10 +35,7 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-// example https://api.nasa.gov/planetary/apod?api_key=SUmqddAa2liUbdkcKxHvt2Umf2A6Z1a8rNuGkJsc&date=2022-11-23
-// String baseURL = "https://api.nasa.gov/planetary/apod?api_key=SUmqddAa2liUbdkcKxHvt2Umf2A6Z1a8rNuGkJsc&date=";
-// String parseURL = baseURL+ymd;
-// date minimum is 1995-06-16
+
 
 public class DatePicker extends BaseActivity {
 
@@ -43,6 +43,8 @@ public class DatePicker extends BaseActivity {
     private Button dateButton;
     private List<NASAImage> imageList = new ArrayList<>();
     private Adapter adapter;
+    private ProgressBar progressBar;
+    private String yes, no;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,58 @@ public class DatePicker extends BaseActivity {
         adapter = new Adapter();
         listView.setAdapter(adapter);
 
+        progressBar = findViewById(R.id.progressBar);
+
+        yes = getString(R.string.yes);
+        no = getString(R.string.no);
+
+        // upon clicking an item in the listview
+        listView.setOnItemClickListener((adapterView, view, pos, l) -> {
+            FrameLayout fragmentContainer = findViewById(R.id.fragmentContainer);
+
+            // gets image position
+            NASAImage nasaImage = imageList.get(pos);
+
+            // gathers information of that image
+            Bundle b = new Bundle();
+            b.putString("DATE", nasaImage.getDate());
+            b.putString("TITLE", nasaImage.getTitle());
+            b.putString("URL", nasaImage.getUrl());
+
+            // sends the information and user to the fragment
+            Intent intent = new Intent(this, EmptyActivity.class);
+            intent.putExtras(b);
+            startActivity(intent);
+        });
+
+        // on long click
+        listView.setOnItemLongClickListener((p, b, pos, id) -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            NASAImage nasaImage = imageList.get(pos);
+
+            // alert title
+            alert.setTitle("Remove this image?")
+                    // message
+                    .setMessage(nasaImage.getTitle())
+                    // yes button to delete nasaImage
+                    .setPositiveButton(yes, (click, arg) -> {
+                        // delete item here
+                        // to do
+                        // create database
+                        // create delete method
+                    })
+                    // no button to not delete nasaImage, does nothing
+                    .setNegativeButton(no, (click, arg) -> {})
+                    .setView(getLayoutInflater().inflate(R.layout.alert_view, null))
+                    .create()
+                    .show();
+            return true;
+        });
+
     }
 
+    // initializes the date picker
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -70,9 +122,12 @@ public class DatePicker extends BaseActivity {
                 String ymd = makeYMD(year, month, day);
                 dateButton.setText(date);
 
-                Log.d("onDateSet()",ymd);
+                // NASA api url
                 final String baseUrl = "https://api.nasa.gov/planetary/apod?api_key=";
+                // generated NASA api key
                 final String apiKey = "SUmqddAa2liUbdkcKxHvt2Umf2A6Z1a8rNuGkJsc";
+                // url to NASA image of the day JSON file
+                // with the chosen date
                 String parseUrl = baseUrl + apiKey + "&date=" + ymd;
                 Log.d("onDateSet()",parseUrl);
 
@@ -91,17 +146,21 @@ public class DatePicker extends BaseActivity {
 
         int style = AlertDialog.THEME_HOLO_DARK;
 
+
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+        // setting the maximum and minimum date limits in the date picker
         datePickerDialog.getDatePicker().setMinDate(minDate());
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
     }
 
+    // date minimum is 1995-06-16
     private long minDate() {
         Calendar cal = Calendar.getInstance();
         cal.set(1995,05,16);
         return cal.getTimeInMillis();
     }
 
+    // gets today's date
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -112,16 +171,20 @@ public class DatePicker extends BaseActivity {
         return makeDateString(year, getMonthFormat(month), day);
     }
 
+    // turns the date into the format yyyy-mmm-dd
+    // month is a three letter abbreviation
     private String makeDateString(int year, String month, int day) {
         String formattedDate = month+" "+day+" "+year;
         return formattedDate;
     }
 
+    // format date into yyyy-mm-dd
     private String makeYMD(int year, int month, int day) {
         String formattedDate = year+"-"+month+"-"+day;
         return formattedDate;
     }
 
+    // formats the month into a three letter abbreviation
     private String getMonthFormat(int month) {
         switch (month) {
             case 1:
@@ -152,13 +215,13 @@ public class DatePicker extends BaseActivity {
         return null;
     }
 
-
+    // date picker view
     public void openDatePicker(View view) {
         datePickerDialog.show();
     }
 
 //    parses through the NASA image of the date selected JSON
-    private class NASA extends AsyncTask<String, String, String> {
+    private class NASA extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -202,6 +265,13 @@ public class DatePicker extends BaseActivity {
             return null;
         }
 
+    // progress bar
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        progressBar.setProgress(values[0]);
+    }
+
+    // notifies the adapter of changes upon success of doInBackground()
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -230,6 +300,7 @@ public class DatePicker extends BaseActivity {
         return sb.toString();
     }
 
+    // adapter
     private class Adapter extends BaseAdapter {
 
         @Override
@@ -247,12 +318,15 @@ public class DatePicker extends BaseActivity {
             return position;
         }
 
+        // listview layout
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
             View v = getLayoutInflater().inflate(R.layout.activity_nasaimage, viewGroup, false);
             TextView title = v.findViewById(R.id.imageTitle);
+            TextView date = v.findViewById(R.id.imageDate);
             NASAImage nasaImage = getItem(position);
             title.setText(nasaImage.getTitle());
+            date.setText(nasaImage.getDate());
             return v;
         }
     }
