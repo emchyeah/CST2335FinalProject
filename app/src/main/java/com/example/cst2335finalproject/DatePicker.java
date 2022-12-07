@@ -229,7 +229,14 @@ public class DatePicker extends BaseActivity {
 //    parses through the NASA image of the date selected JSON
     private class NASA extends AsyncTask<String, Integer, String> {
 
-        @Override
+    @Override
+    protected void onPreExecute() {
+        progressBar.setMax(50);
+        super.onPreExecute();
+
+    }
+
+    @Override
         protected String doInBackground(String... strings) {
             try {
 
@@ -261,6 +268,16 @@ public class DatePicker extends BaseActivity {
                 cValues.put(DatabaseHelper.COL_TITLE, title);
                 long newId = db.insert(DatabaseHelper.TABLE_NAME, null, cValues);
 
+
+                for (int i=0;i<50;i++) {
+                    try {
+                        progressBar.incrementProgressBy(1);
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 // create object from JSON details
                 // and put the object into imageList
                 NASAImage nasaImage = new NASAImage(date, url, title, newId);
@@ -287,8 +304,9 @@ public class DatePicker extends BaseActivity {
     // notifies the adapter of changes upon success of doInBackground()
         @Override
         protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+            progressBar.setProgress(0);
             adapter.notifyDataSetChanged();
+            super.onPostExecute(s);
 
         }
     }
