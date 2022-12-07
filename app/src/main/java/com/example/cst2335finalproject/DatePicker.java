@@ -6,13 +6,31 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 // example https://api.nasa.gov/planetary/apod?api_key=SUmqddAa2liUbdkcKxHvt2Umf2A6Z1a8rNuGkJsc&date=2022-11-23
 // String baseURL = "https://api.nasa.gov/planetary/apod?api_key=SUmqddAa2liUbdkcKxHvt2Umf2A6Z1a8rNuGkJsc&date=";
@@ -23,6 +41,8 @@ public class DatePicker extends BaseActivity {
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
+    private List<NASAImage> imageList = new ArrayList<>();
+    private Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +53,11 @@ public class DatePicker extends BaseActivity {
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
+
+        ListView listView = findViewById(R.id.listView);
+        adapter = new Adapter();
+        listView.setAdapter(adapter);
+
     }
 
     private void initDatePicker() {
@@ -45,7 +70,15 @@ public class DatePicker extends BaseActivity {
                 String ymd = makeYMD(year, month, day);
                 dateButton.setText(date);
 
-                Log.d("oneDateSet()",ymd);
+                Log.d("onDateSet()",ymd);
+                final String baseUrl = "https://api.nasa.gov/planetary/apod?api_key=";
+                final String apiKey = "SUmqddAa2liUbdkcKxHvt2Umf2A6Z1a8rNuGkJsc";
+                String parseUrl = baseUrl + apiKey + "&date=" + ymd;
+                Log.d("onDateSet()",parseUrl);
+
+                NASA nasa = new NASA();
+//                using cat random cat image because NASA JSON is slow
+                nasa.execute("https://cataas.com/cat?json=true");
 
             }
         };
@@ -61,8 +94,6 @@ public class DatePicker extends BaseActivity {
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMinDate(minDate());
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-
-
     }
 
     private long minDate() {
@@ -125,4 +156,105 @@ public class DatePicker extends BaseActivity {
     public void openDatePicker(View view) {
         datePickerDialog.show();
     }
+
+//    parses through the NASA image of the date selected JSON
+    private class NASA extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+
+                // get response from host
+                InputStream response = request(strings[0]);
+
+                // parse through JSON objects
+                String result = parser(response);
+                JSONObject obj = new JSONObject(result);
+
+//                log JSON result
+                Log.d("NASA 3 ", result);
+
+//                get JSON details
+//                using random cat image, remember to change these back to NASA
+                String date = obj.getString("createdAt");
+                String url = obj.getString("url");
+                String title = obj.getString("_id");
+
+//                create NASAImage object
+                NASAImage nasaImage = new NASAImage(date, url, title);
+                imageList.add(nasaImage);
+
+//                log JSON details
+                Log.d("NASA", date);
+                Log.d("NASA", url);
+                Log.d("NASA", title);
+
+            }
+            catch (IOException e) {
+                Log.d("NASA","Issue with request/response");
+                e.printStackTrace();
+            }
+            catch (JSONException e) {
+                Log.d("NASA", "Issue parsing JSON");
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            adapter.notifyDataSetChanged();
+
+        }
+    }
+
+//    send request to host
+    public InputStream request (String x) throws IOException {
+        URL url = new URL(x);
+        Log.d("input stream", x);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        Log.d("input stream", "AAAAAAAA");
+        return connection.getInputStream();
+    }
+
+//    parses through JSON
+    public String parser(InputStream response) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(response));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while((line = br.readLine()) !=null) {
+            sb.append(line+ "\n");
+        }
+        return sb.toString();
+    }
+
+    private class Adapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return imageList.size();
+        }
+
+        @Override
+        public NASAImage getItem(int position) {
+            return imageList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup viewGroup) {
+            View v = getLayoutInflater().inflate(R.layout.activity_nasaimage, viewGroup, false);
+            TextView title = v.findViewById(R.id.imageTitle);
+            NASAImage nasaImage = getItem(position);
+            title.setText(nasaImage.getTitle());
+            return v;
+        }
+    }
+
 }
