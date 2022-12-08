@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">CST2335</string>
-    <string name="welcome">Welcome page</string>
+    <string name="app_name">Serious Space Ver.1.0</string>
+    <string name="welcome">Welcome to Dan and Meigan\'s NASA Space Application!</string>
 
-    <!--  open/close navigation  -->
+    <!-- open/clse navigation -->
     <string name="open">Open</string>
     <string name="close">Close</string>
 
@@ -11,7 +11,7 @@
     <string name="no">No</string>
     <string name="alertTitle">Remove this image?</string>
 
-    <!--  date picker  -->
+    <!-- date picker -->
     <string name="textDateMessage">Pick a date</string>
 
     <!--  months abbreviated  -->
@@ -29,10 +29,11 @@
     <string name="DEC">DEC</string>
 
     <!--  item names  -->
-    <string name="item1">Spaceship</string>
-    <string name="item2">Earth</string>
+    <string name="item1">Get ready for cool NASA space pictures!!</string>
+    <string name="item2">This is the Earth</string>
 
     <!--  names in navigation drawer  -->
+    <string name="navTitle">Dan &amp; Meigan\'s Space Pics Application</string>
     <string name="actionHome">Home</string>
     <string name="actionDatePicker">Pick a date</string>
     <string name="actionExit">Exit app</string>
@@ -41,4 +42,21 @@
     <string name="fragmentDate">Date:</string>
     <string name="fragmentUrl">URL:</string>
     <string name="fragmentTitle">Title:</string>
+
+    <string name="name">What is your name?</string>
+    <string name="button">Click!</string>
+    <string name="Hello">"Hello"</string>
+    <string name="ChangeName">Change Name</string>
+    <string name="Space">Space Pix!</string>
+
+    <!-- Earth Facts -->
+    <string name="know">Did you know this?</string>
+    <string name="earth1">Earth is the third rock from the Sun!</string>
+    <string name="earth2">The Earth is not a perfect sphere!</string>
+    <string name="earth3">Chili had the largest earthquake on May 22, 1960 with a magnitude of 9.5!</string>
+    <string name="earth4">According to NASA Earth Observatory, El Azizia, Libya recorded the hottest temperature at 57.8 degrees Celsius!</string>
+    <string name="earth5">The coldest place on Earth is Antarctica. Winter temperatures can drop below minus 73 degrees Celsius!</string>
+    <string name="earth6"> The Earths gravity is uneven across the globe due to the Earth not being a perfect sphere!</string>
+    <string name="earth7">Earth may have once had 2 moons!</string>
+    <string name="earth8">People have climbed Mount Everest (29,029 feet above sea level) without oxygen!</string>
 </resources>

@@ -34,8 +34,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/welcome"
+                android:layout_gravity="center"
                 android:textSize="24sp">
             </TextView>
+
+            <EditText
+                android:id="@+id/nameInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/name" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/button" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+
+            <TextView
+                android:id="@+id/earthFact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
 
         </LinearLayout>
 
@@ -45,6 +70,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:menu="@menu/navigation_drawer"
+            app:headerLayout="@layout/nav_header"
             android:layout_gravity="start">
         </com.google.android.material.navigation.NavigationView>
 

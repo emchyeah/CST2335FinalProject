@@ -44,12 +44,38 @@ public class DatePicker extends BaseActivity {
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
     private ContentValues cValues = new ContentValues();
+    TextView nameText;
+    Button changeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datepicker);
         Load();
+
+        nameText = findViewById(R.id.name);
+        String newTextView = nameText.getText().toString();
+
+        Intent dataSent = getIntent();
+        //getting data from previous page
+        String dataName = dataSent.getStringExtra("name");
+
+        //sets the TextView to show the name set from MainActivity to this activity
+        //if a name is not set, it just adds an ! at the end
+        if(dataName == null){
+            nameText.setText(newTextView + "!");
+        }
+        //its a name is set, it adds the name with ! at the end
+        else{
+            nameText.setText(newTextView + " " + dataName + "!");
+        }
+
+        changeName = findViewById(R.id.changeName);
+        //button click goes to previous activity
+        changeName.setOnClickListener(click -> {
+            setResult(0, dataSent);
+            finish();
+        });
 
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
@@ -62,6 +88,8 @@ public class DatePicker extends BaseActivity {
 
         // setup progress bar
         progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
 
         // strings for the alert
         yes = getString(R.string.yes);
@@ -92,6 +120,8 @@ public class DatePicker extends BaseActivity {
             Intent intent = new Intent(this, EmptyActivity.class);
             intent.putExtras(b);
             startActivity(intent);
+
+
         });
 
         // on long click
@@ -151,7 +181,6 @@ public class DatePicker extends BaseActivity {
         int month = cal.get(Calendar.MONTH);
         month = month + 1;
         int day = cal.get(Calendar.DAY_OF_WEEK);
-
         int style = AlertDialog.THEME_HOLO_DARK;
 
 
@@ -232,6 +261,7 @@ public class DatePicker extends BaseActivity {
     // set up progress bar max
     @Override
     protected void onPreExecute() {
+        progressBar.setVisibility(View.VISIBLE);
         progressBar.setMax(50);
         super.onPreExecute();
 
@@ -301,6 +331,7 @@ public class DatePicker extends BaseActivity {
         @Override
         protected void onPostExecute(String s) {
             progressBar.setProgress(0);
+            progressBar.setVisibility(View.INVISIBLE);
             adapter.notifyDataSetChanged();
             super.onPostExecute(s);
 
