@@ -33,14 +33,14 @@
     <string name="Space">Image de l\'espace!</string>
 
     <!-- Earth Facts -->
-    <string name="know">Did you know this?</string>
-    <string name="earth1">Earth is the third rock from the Sun!</string>
-    <string name="earth2">The Earth is not a perfect sphere!</string>
-    <string name="earth3">Chili had the largest earthquake on May 22, 1960 with a magnitude of 9.5!</string>
-    <string name="earth4">According to NASA Earth Observatory, El Azizia, Libya recorded the hottest temperature at 57.8 degrees Celsius!</string>
-    <string name="earth5">The coldest place on Earth is Antarctica. Winter temperatures can drop below minus 73 degrees Celsius!</string>
-    <string name="earth6">Due to the Earth not being a perfect sphere, causing uneven gravity across the globe!</string>
-    <string name="earth7">Earth may have once had 2 moons!</string>
-    <string name="earth8">People have climbed Mount Everest (29,029 feet above sea level) without oxygen!</string>
+    <string name="know">Le savais-tu?</string>
+    <string name="earth1">La Terre est le troisiéme rocher à partir du soleil!</string>
+    <string name="earth2">La Terre n\'est pas une sphére parfaite!</string>
+    <string name="earth3">Chili a eu le plus gran tremblement de terre le 22 Mai 1960 avec une magnitude de 9,5!</string>
+    <string name="earth4">Selon l\'observatoire de la Terre de la NASA, El Azizia, la Libye a enregistré la température la plus chause à 57.8 degés Celsius!</string>
+    <string name="earth5">L\'endroit le plus froid sur terre est l\'Antarctique. Les températures hivernales peuvent descendre en dessous de moin 73 degrés Celsius!</string>
+    <string name="earth6">La gravité de la terre est inégale à travers le globe car la terre n\'est pas une shére parfaite!</string>
+    <string name="earth7">La terre peut avoir une avait deux lunes!</string>
+    <string name="earth8">Les gens ont escaladé le mon Everest (29 029 pieds au-dessus du niveau de la mer) sans oxygène!</string>
 
 </resources>

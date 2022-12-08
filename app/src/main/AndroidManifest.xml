@@ -39,8 +39,7 @@
         </activity>
         <activity
             android:name=".DatePicker"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".BaseActivity"
             android:exported="false" />

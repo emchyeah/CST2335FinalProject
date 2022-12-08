@@ -66,7 +66,8 @@ public class BaseActivity extends AppCompatActivity
                         .setAction("Go away!", click -> {
                             earth.setText(null);
                             Toast.makeText(getApplicationContext(), ":(", Toast.LENGTH_SHORT).show();
-                        }).show();
+                        }).setDuration(10000)
+                        .show();
 
                 break;
         }
