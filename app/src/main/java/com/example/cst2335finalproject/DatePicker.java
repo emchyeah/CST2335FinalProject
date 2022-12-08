@@ -65,9 +65,12 @@ public class DatePicker extends BaseActivity {
         String dataName = dataSent.getStringExtra("name");
 
         //sets the TextView to show the name set from MainActivity to this activity
+        //if a name is not set, it just adds an ! at the end
         if(dataName == null){
             nameText.setText(newTextView + "!");
-        } else{
+        }
+        //its a name is set, it adds the name with ! at the end
+        else{
             nameText.setText(newTextView + " " + dataName + "!");
         }
 

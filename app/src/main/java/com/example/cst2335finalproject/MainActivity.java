@@ -29,8 +29,11 @@ public class MainActivity extends BaseActivity {
         button.setOnClickListener(v -> {
             //if there is an input in the EditText
             if (nameInput.getText().length() > 0) {
+                //saves the EditText field under "name" key to be used on another activity
                 nextPage.putExtra("name", nameInput.getText().toString());
+                //goes to next activity
                 startActivityForResult(nextPage, 1);
+                //clears the EditText
                 nameInput.getText().clear();
 
             } //if there is no input in the EditText, creates a short popup message for user
@@ -49,7 +52,9 @@ public class MainActivity extends BaseActivity {
         //opens the app, the name will be saved
         SharedPreferences prefs = getSharedPreferences("shared_prefs", MODE_PRIVATE);
         SharedPreferences.Editor edit = prefs.edit();
+        //takes the EditText and puts it into shared prefs under "name" key
         edit.putString("name", nameInput.getText().toString());
+        //commits the sharedprefs
         edit.commit();
     }
 }
