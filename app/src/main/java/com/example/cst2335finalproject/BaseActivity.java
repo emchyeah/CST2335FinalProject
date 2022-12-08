@@ -60,14 +60,13 @@ public class BaseActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.item1:
-
                 //makes a toast message when you click on the spaceship
                 Toast.makeText(getApplicationContext(), item1, Toast.LENGTH_SHORT).show();
                 //click takes you to the DatePicker activity
                 Intent intent = new Intent(this, DatePicker.class);
                 startActivity(intent);
+                earth.setText(null);
                 break;
-
             case R.id.item2:
                 //makes a snackbar asking if you knew the fact
                 Snackbar.make(earth, "Did you know?", Snackbar.LENGTH_LONG)
@@ -110,7 +109,6 @@ public class BaseActivity extends AppCompatActivity
     //    displays toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.my_menu, menu);
         return true;
