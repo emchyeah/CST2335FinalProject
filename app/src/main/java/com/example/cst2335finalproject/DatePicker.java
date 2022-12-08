@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import org.json.JSONException;
@@ -40,12 +41,13 @@ public class DatePicker extends BaseActivity {
     private List<NASAImage> imageList = new ArrayList<>();
     private Adapter adapter;
     private ProgressBar progressBar;
-    private String yes, no, alertTitle;
+    private String yes, no, alertTitle, clearList, noElements;
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
     private ContentValues cValues = new ContentValues();
     TextView nameText;
     Button changeName;
+    Button clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +64,11 @@ public class DatePicker extends BaseActivity {
 
         //sets the TextView to show the name set from MainActivity to this activity
         //if a name is not set, it just adds an ! at the end
-        if(dataName == null){
+        if (dataName == null) {
             nameText.setText(newTextView + "!");
         }
         //its a name is set, it adds the name with ! at the end
-        else{
+        else {
             nameText.setText(newTextView + " " + dataName + "!");
         }
 
@@ -143,11 +145,27 @@ public class DatePicker extends BaseActivity {
                         adapter.notifyDataSetChanged();
                     })
                     // no button to not delete nasaImage, does nothing
-                    .setNegativeButton(no, (click, arg) -> {})
+                    .setNegativeButton(no, (click, arg) -> {
+                    })
                     .setView(getLayoutInflater().inflate(R.layout.alert_view, null))
                     .create()
                     .show();
             return true;
+        });
+
+        clearList = getString(R.string.clear);
+        noElements = getString(R.string.noElements);
+        clear = findViewById(R.id.clear_list);
+        clear.setOnClickListener(click -> {
+            if(imageList.size() > 0){
+                imageList.clear();
+                adapter.notifyDataSetChanged();
+                Toast.makeText(this, clearList , Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(this, noElements, Toast.LENGTH_SHORT).show();
+            }
+
         });
 
     }
@@ -156,7 +174,7 @@ public class DatePicker extends BaseActivity {
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
             month = month + 1;
-            String stringMonth  = getMonthFormat(month);
+            String stringMonth = getMonthFormat(month);
             String date = makeDateString(year, stringMonth, day);
             String ymd = makeYMD(year, month, day);
             dateButton.setText(date);
@@ -168,7 +186,7 @@ public class DatePicker extends BaseActivity {
             // url to NASA image of the day JSON file
             // with the chosen date
             String parseUrl = baseUrl + apiKey + "&date=" + ymd;
-            Log.d("onDateSet()",parseUrl);
+            Log.d("onDateSet()", parseUrl);
 
             // execute async task after date is picked
             NASA nasa = new NASA();
@@ -193,7 +211,7 @@ public class DatePicker extends BaseActivity {
     // date minimum is 1995-06-16
     private long minDate() {
         Calendar cal = Calendar.getInstance();
-        cal.set(1995,5,16);
+        cal.set(1995, 5, 16);
         return cal.getTimeInMillis();
     }
 
@@ -211,12 +229,12 @@ public class DatePicker extends BaseActivity {
     // turns the date into the format yyyy-mmm-dd
     // month is a three letter abbreviation
     private String makeDateString(int year, String month, int day) {
-        return month+" "+day+" "+year;
+        return month + " " + day + " " + year;
     }
 
     // format date into yyyy-mm-dd
     private String makeYMD(int year, int month, int day) {
-        return year+"-"+month+"-"+day;
+        return year + "-" + month + "-" + day;
     }
 
     // formats the month into a three letter abbreviation
@@ -255,19 +273,19 @@ public class DatePicker extends BaseActivity {
         datePickerDialog.show();
     }
 
-//    parses through the NASA image of the date selected JSON
+    //    parses through the NASA image of the date selected JSON
     private class NASA extends AsyncTask<String, Integer, String> {
 
-    // set up progress bar max
-    @Override
-    protected void onPreExecute() {
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setMax(50);
-        super.onPreExecute();
+        // set up progress bar max
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setMax(50);
+            super.onPreExecute();
 
-    }
+        }
 
-    @Override
+        @Override
         protected String doInBackground(String... strings) {
             try {
 
@@ -295,7 +313,7 @@ public class DatePicker extends BaseActivity {
                 long newId = db.insert(DatabaseHelper.TABLE_NAME, null, cValues);
 
                 // increment progress by 1 and sleep for 10 milliseconds
-                for (int i=0;i<50;i++) {
+                for (int i = 0; i < 50; i++) {
                     try {
                         progressBar.incrementProgressBy(1);
                         Thread.sleep(10);
@@ -308,12 +326,10 @@ public class DatePicker extends BaseActivity {
                 // and put the object into imageList
                 NASAImage nasaImage = new NASAImage(date, url, title, newId);
                 imageList.add(nasaImage);
-            }
-            catch (IOException e) {
-                Log.d("NASA","Issue with request/response");
+            } catch (IOException e) {
+                Log.d("NASA", "Issue with request/response");
                 e.printStackTrace();
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 Log.d("NASA", "Issue parsing JSON");
                 e.printStackTrace();
             }
@@ -321,13 +337,13 @@ public class DatePicker extends BaseActivity {
             return null;
         }
 
-    // progress bar
-    @Override
-    protected void onProgressUpdate(Integer... values) {
-        progressBar.setProgress(values[0]);
-    }
+        // progress bar
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setProgress(values[0]);
+        }
 
-    // notifies the adapter of changes upon success of doInBackground()
+        // notifies the adapter of changes upon success of doInBackground()
         @Override
         protected void onPostExecute(String s) {
             progressBar.setProgress(0);
@@ -338,19 +354,19 @@ public class DatePicker extends BaseActivity {
         }
     }
 
-//    send request to host
-    public InputStream request (String x) throws IOException {
+    //    send request to host
+    public InputStream request(String x) throws IOException {
         URL url = new URL(x);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         return connection.getInputStream();
     }
 
-//    parses through JSON
+    //    parses through JSON
     public String parser(InputStream response) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(response));
         StringBuilder sb = new StringBuilder();
         String line;
-        while((line = br.readLine()) !=null) {
+        while ((line = br.readLine()) != null) {
             sb.append(line);
         }
         return sb.toString();
@@ -389,7 +405,7 @@ public class DatePicker extends BaseActivity {
 
     // method to delete image from database
     private void deleteImage(NASAImage i) {
-        db.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.COL_ID+"= ?", new String[] {Long.toString(i.getId())});
+        db.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.COL_ID + "= ?", new String[]{Long.toString(i.getId())});
     }
 
     // load data from database
@@ -398,7 +414,7 @@ public class DatePicker extends BaseActivity {
         db = dbHelper.getWritableDatabase();
 
         // identify columns in database
-        String [] columns = {DatabaseHelper.COL_ID,
+        String[] columns = {DatabaseHelper.COL_ID,
                 DatabaseHelper.COL_DATE,
                 DatabaseHelper.COL_URL,
                 DatabaseHelper.COL_TITLE};
@@ -414,7 +430,7 @@ public class DatePicker extends BaseActivity {
         int titleColumn = cursor.getColumnIndex(DatabaseHelper.COL_TITLE);
 
         // loop through database
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             // gather information from database
             long id = cursor.getLong(idColumn);
             String date = cursor.getString(dateColumn);

@@ -10,9 +10,6 @@
     <string name="no">Non</string>
     <string name="alertTitle">Supprimer cette image?</string>
 
-    <!-- date picker -->
-    <string name="textDateMessage">Choisis une date</string>
-
     <!--  months abbreviated  -->
     <string name="JAN">JANV</string>
     <string name="FEB">FÉVR</string>
@@ -41,12 +38,16 @@
     <string name="fragmentDate">Date:</string>
     <string name="fragmentUrl">URL:</string>
     <string name="fragmentTitle">Titre:</string>
+    <string name="goBack">Retourner</string>
 
+    <!-- Date Picker -->
     <string name="name">Quel est votre nom?</string>
     <string name="button">Cliquez sur!</string>
     <string name="Hello">"Bonjour"</string>
     <string name="ChangeName">Changer de nom</string>
     <string name="Space">Image de l\'espace!</string>
+    <string name="clear_list">Effacer la liste</string>
+    <string name="textDateMessage">Choisis une date</string>
 
     <!-- Earth Facts -->
     <string name="know">Le savais-tu?</string>
@@ -58,5 +59,8 @@
     <string name="earth6">La gravité de la terre est inégale à travers le globe car la terre n\'est pas une shére parfaite!</string>
     <string name="earth7">La terre peut avoir une avait deux lunes!</string>
     <string name="earth8">Les gens ont escaladé le mon Everest (29 029 pieds au-dessus du niveau de la mer) sans oxygène!</string>
+
+    <string name="clear">Tout effacé</string>
+    <string name="noElements">Il n\'ya pas d\'éléments dans la liste</string>
 
 </resources>

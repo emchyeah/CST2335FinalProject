@@ -2,7 +2,7 @@
     <string name="app_name">Serious Space Ver.1.0</string>
     <string name="welcome">Welcome to Dan and Meigan\'s NASA Space Application!</string>
 
-    <!-- open/clse navigation -->
+    <!-- open/close navigation -->
     <string name="open">Open</string>
     <string name="close">Close</string>
 
@@ -10,9 +10,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="alertTitle">Remove this image?</string>
-
-    <!-- date picker -->
-    <string name="textDateMessage">Pick a date</string>
 
     <!--  months abbreviated  -->
     <string name="JAN">JAN</string>
@@ -42,12 +39,16 @@
     <string name="fragmentDate">Date:</string>
     <string name="fragmentUrl">URL:</string>
     <string name="fragmentTitle">Title:</string>
+    <string name="goBack">Go Back</string>
 
+    <!-- DatePicker Page -->
     <string name="name">What is your name?</string>
     <string name="button">Click!</string>
     <string name="Hello">"Hello"</string>
     <string name="ChangeName">Change Name</string>
     <string name="Space">Space Pix!</string>
+    <string name="clear_list">Clear List</string>
+    <string name="textDateMessage">Pick a date</string>
 
     <!-- Earth Facts -->
     <string name="know">Did you know this?</string>
@@ -59,4 +60,7 @@
     <string name="earth6"> The Earths gravity is uneven across the globe due to the Earth not being a perfect sphere!</string>
     <string name="earth7">Earth may have once had 2 moons!</string>
     <string name="earth8">People have climbed Mount Everest (29,029 feet above sea level) without oxygen!</string>
+
+    <string name="clear">Cleared all</string>
+    <string name="noElements">There are no elements in the list</string>
 </resources>
