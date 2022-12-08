@@ -1,35 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Serious Space Ver.1.0</string>
-    <string name="welcome">Welcome to Dan and Meigan\'s NASA Space Application!</string>
+    <string name="app_name">Serious Space! Ver.1.0</string>
+    <string name="welcome">Bienvenue dans l\'application spatiale Dan et Meigan de la NASA!</string>
 
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="open">Ouvert</string>
+    <string name="close">Ferme</string>
 
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
-    <string name="textDateMessage">Pick a date</string>
+    <string name="textDateMessage">Choisis une date</string>
 
     <!--  item names  -->
-    <string name="item1">Get ready for cool NASA space pictures!!</string>
-    <string name="item2">This is the Earth</string>
+    <string name="item1">Préparez-vous pour de superbes images spatiales de la NASA!!</string>
+    <string name="item2">C\'est la terre</string>
 
     <!--  names in navigation drawer  -->
-    <string name="navTitle">Dan &amp; Meigan\'s Space Pics Application</string>
-    <string name="actionHome">Home</string>
-    <string name="actionDatePicker">Pick a date</string>
-    <string name="actionExit">Exit app</string>
+    <string name="navTitle">Application d\'imgaes spatiales Dan &amp; Meigan</string>
+    <string name="actionHome">Page D\'accueil</string>
+    <string name="actionDatePicker">Choisis une date</string>
+    <string name="actionExit">Quitter l\'application</string>
 
     <!--  fragment strings  -->
     <string name="fragmentDate">Date:</string>
     <string name="fragmentUrl">URL:</string>
-    <string name="fragmentTitle">Title:</string>
+    <string name="fragmentTitle">Titre:</string>
 
-    <string name="name">What is your name?</string>
-    <string name="button">Click!</string>
-    <string name="Hello">"Hello"</string>
-    <string name="ChangeName">Change Name</string>
-    <string name="Space">Space Pix!</string>
+    <string name="name">Quel est votre nom?</string>
+    <string name="button">Cliquez sur!</string>
+    <string name="Hello">"Bonjour"</string>
+    <string name="ChangeName">Changer de nom</string>
+    <string name="Space">Image de l\'espace!</string>
 
     <!-- Earth Facts -->
     <string name="know">Did you know this?</string>

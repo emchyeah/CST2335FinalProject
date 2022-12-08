@@ -46,11 +46,37 @@ public class DatePicker extends BaseActivity {
     private ProgressBar progressBar;
     private String yes, no;
 
+    TextView nameText;
+    Button changeName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datepicker);
-        Load();
+
+        //sets activity name
+        setTitle("Date Picker");
+
+        nameText = findViewById(R.id.name);
+        String newTextView = nameText.getText().toString();
+
+        Intent dataSent = getIntent();
+        //getting data from previous page
+        String dataName = dataSent.getStringExtra("name");
+
+        //sets the TextView to show the name set from MainActivity to this activity
+        if(dataName == null){
+            nameText.setText(newTextView + "!");
+        } else{
+            nameText.setText(newTextView + " " + dataName + "!");
+        }
+
+        changeName = findViewById(R.id.changeName);
+        //button click goes to previous activity
+        changeName.setOnClickListener(click -> {
+            setResult(0, dataSent);
+            finish();
+        });
 
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
