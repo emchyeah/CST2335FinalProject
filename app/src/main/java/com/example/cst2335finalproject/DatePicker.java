@@ -194,29 +194,29 @@ public class DatePicker extends BaseActivity {
     private String getMonthFormat(int month) {
         switch (month) {
             case 1:
-                return "JAN";
+                return getString(R.string.JAN);
             case 2:
-                return "FEB";
+                return getString(R.string.FEB);
             case 3:
-                return "MAR";
+                return getString(R.string.MAR);
             case 4:
-                return "APR";
+                return getString(R.string.APR);
             case 5:
-                return "MAY";
+                return getString(R.string.MAY);
             case 6:
-                return "JUN";
+                return getString(R.string.JUN);
             case 7:
-                return "JUL";
+                return getString(R.string.JUL);
             case 8:
-                return "AUG";
+                return getString(R.string.AUG);
             case 9:
-                return "SEP";
+                return getString(R.string.SEP);
             case 10:
-                return "OCT";
+                return getString(R.string.OCT);
             case 11:
-                return "NOV";
+                return getString(R.string.NOV);
             case 12:
-                return "DEC";
+                return getString(R.string.DEC);
         }
         return null;
     }

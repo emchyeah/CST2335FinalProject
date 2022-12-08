@@ -14,6 +14,20 @@
     <!--  date picker  -->
     <string name="textDateMessage">Pick a date</string>
 
+    <!--  months abbreviated  -->
+    <string name="JAN">JAN</string>
+    <string name="FEB">FEB</string>
+    <string name="MAR">MAR</string>
+    <string name="APR">APR</string>
+    <string name="MAY">MAY</string>
+    <string name="JUN">JUN</string>
+    <string name="JUL">JUL</string>
+    <string name="AUG">AUG</string>
+    <string name="SEP">SEP</string>
+    <string name="OCT">OCT</string>
+    <string name="NOV">NOV</string>
+    <string name="DEC">DEC</string>
+
     <!--  item names  -->
     <string name="item1">Spaceship</string>
     <string name="item2">Earth</string>
