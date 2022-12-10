@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -66,6 +67,7 @@ public class BaseActivity extends AppCompatActivity
                 //makes a toast message when you click on the spaceship
                 Toast.makeText(getApplicationContext(), item1, Toast.LENGTH_SHORT).show();
                 //click takes you to the DatePicker activity
+
                 Intent intent = new Intent(this, DatePicker.class);
                 startActivity(intent);
                 earth.setText(null);

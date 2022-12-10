@@ -13,7 +13,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:background="#2FAC13"></androidx.appcompat.widget.Toolbar>
+        android:background="#2FAC13">
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -26,6 +27,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/earthFact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,7 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textDateMessage"
-                android:textSize="24sp"></TextView>
+                android:textSize="24sp">
+            </TextView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,7 +91,8 @@
                     android:onClick="openDatePicker"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="24sp"></Button>
+                    android:textSize="24sp">
+                </Button>
 
                 <View
                     android:layout_width="0dp"
@@ -103,7 +112,8 @@
             <ListView
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="wrap_content">
+            </ListView>
 
         </LinearLayout>
 
@@ -128,7 +138,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:menu="@menu/navigation_drawer"></com.google.android.material.navigation.NavigationView>
+            app:menu="@menu/navigation_drawer">
+        </com.google.android.material.navigation.NavigationView>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
