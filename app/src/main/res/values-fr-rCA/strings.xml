@@ -63,4 +63,15 @@
     <string name="clear">Tout effacé</string>
     <string name="noElements">Il n\'ya pas d\'éléments dans la liste</string>
 
+    <!-- help popup -->
+    <string name="help">Aider</string>
+    <string name="helpTitle">Comment utilizer l\'application:</string>
+    <string name="helpText">Entrez votre nom et cliquez sur le "Cliquez Sur!" bouton pour passer à la page suivante.\n
+    Sélectionnez une date à l\'aide du sélecteur de date, puis cliquez sur OK. \n
+    Cliquez sur l\'élément de la liste pour voir le titre, la date et l\'URL de l\'élément sélectionné. \n
+    Appuyez longuement sur l\'élément de la liste à supprimer de la liste. \n
+    Cliquez sur l\'icône du vaisseau spatial pour accéder à la liste de vos images spatiales de la NASA. \n
+    Cliquez sur la Terre pour voir des faits intéressants sur la Terre !</string>
+    <string name="doneHelp">Fini</string>
+
 </resources>

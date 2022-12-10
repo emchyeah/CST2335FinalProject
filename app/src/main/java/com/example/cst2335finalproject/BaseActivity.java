@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,8 +83,31 @@ public class BaseActivity extends AppCompatActivity
                         }).setDuration(10000)
                         .show();
                 break;
+            case R.id.item3:
+                //takes you to help popup
+                popUp();
+                earth.setText(null);
+                break;
         }
-        return true;
+        return false;
+    }
+
+    //creates help popup window
+    public void popUp(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View helpPopUp = getLayoutInflater().inflate(R.layout.popup, null);
+        TextView popUpText = helpPopUp.findViewById(R.id.popUpText);
+        Button popUpButton = helpPopUp.findViewById(R.id.popUpButton);
+
+        dialogBuilder.setView(helpPopUp);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+
+        //closes popup window on click
+        popUpButton.setOnClickListener(click -> {
+            dialog.dismiss();
+        });
+
     }
 
     //    on select for navigation drawer
@@ -102,6 +128,8 @@ public class BaseActivity extends AppCompatActivity
             case R.id.actionExit:
                 finishAffinity();
                 break;
+            case  R.id.actionHelp:
+                popUp();
         }
         return false;
     }

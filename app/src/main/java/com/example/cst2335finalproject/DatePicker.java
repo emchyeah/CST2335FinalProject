@@ -156,13 +156,20 @@ public class DatePicker extends BaseActivity {
         clearList = getString(R.string.clear);
         noElements = getString(R.string.noElements);
         clear = findViewById(R.id.clear_list);
+        //clears list of all items
         clear.setOnClickListener(click -> {
-            if(imageList.size() > 0){
+            if (imageList.size() > 0) {
+                //goes through number of images and deletes them from db
+                for(int i = 0; i < imageList.size(); i++){
+                    NASAImage image = imageList.get(i);
+                    deleteImage(image);
+                }
+                //clears listview
                 imageList.clear();
+                //updates db
                 adapter.notifyDataSetChanged();
-                Toast.makeText(this, clearList , Toast.LENGTH_SHORT).show();
-            }
-            else{
+                Toast.makeText(this, clearList, Toast.LENGTH_SHORT).show();
+            } else {
                 Toast.makeText(this, noElements, Toast.LENGTH_SHORT).show();
             }
 

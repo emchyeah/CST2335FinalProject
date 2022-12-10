@@ -47,7 +47,7 @@
     <string name="Hello">"Hello"</string>
     <string name="ChangeName">Change Name</string>
     <string name="Space">Space Pix!</string>
-    <string name="clear_list">Clear List</string>
+    <string name="clear_list">Clear All</string>
     <string name="textDateMessage">Pick a date</string>
 
     <!-- Earth Facts -->
@@ -63,4 +63,16 @@
 
     <string name="clear">Cleared all</string>
     <string name="noElements">There are no elements in the list</string>
+
+    <!-- help popup -->
+    <string name="help">Help</string>
+    <string name="helpTitle">How to use the app:</string>
+    <string name="helpText">Enter your name and click the "Click!" button to go to the next page.\n
+    Select a date using the date picker, and click OK. \n
+    Click on the list item to see the Title, Date, and URL of the item selected. \n
+    Long press the list item to remove from the list. \n
+    Click on the Spaceship icon to go to the list of your NASA Space pictures. \n
+    Click on the Earth to see cool Earth facts! </string>
+    <string name="doneHelp">Done</string>
+
 </resources>
