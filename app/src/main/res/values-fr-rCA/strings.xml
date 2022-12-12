@@ -73,5 +73,6 @@
     Cliquez sur l\'icône du vaisseau spatial pour accéder à la liste de vos images spatiales de la NASA. \n
     Cliquez sur la Terre pour voir des faits intéressants sur la Terre !</string>
     <string name="doneHelp">Fini</string>
+    <string name="DatePickerPage">Sélecteur de Date</string>
 
 </resources>

@@ -18,8 +18,6 @@ import android.widget.TextView;
 
 public class DetailsFragment extends Fragment {
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,6 +30,7 @@ public class DetailsFragment extends Fragment {
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_details_fragment,
                 container, false);
+
 
         goBack = view.findViewById(R.id.detailsButton);
         goBack.setOnClickListener(click -> {

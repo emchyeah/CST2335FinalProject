@@ -53,6 +53,8 @@ public class DatePicker extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datepicker);
+        setTitle(R.string.DatePickerPage);
+
         Load();
 
         nameText = findViewById(R.id.name);
@@ -76,7 +78,8 @@ public class DatePicker extends BaseActivity {
         //button click goes to previous activity
         changeName.setOnClickListener(click -> {
             setResult(0, dataSent);
-            finish();
+            Intent mainIntent = new Intent(this, MainActivity.class);
+            startActivity(mainIntent);
         });
 
         initDatePicker();

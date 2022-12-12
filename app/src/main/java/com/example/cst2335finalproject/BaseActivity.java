@@ -132,6 +132,7 @@ public class BaseActivity extends AppCompatActivity
                 break;
             case  R.id.actionHelp:
                 popUp();
+                break;
         }
         return false;
     }

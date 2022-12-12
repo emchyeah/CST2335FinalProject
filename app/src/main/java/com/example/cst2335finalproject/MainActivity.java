@@ -31,8 +31,6 @@ public class MainActivity extends BaseActivity {
                 nextPage.putExtra("name", nameInput.getText().toString());
                 //goes to next activity
                 startActivityForResult(nextPage, 1);
-                //clears the EditText
-                nameInput.getText().clear();
 
             } //if there is no input in the EditText, creates a short popup message for user
             else {

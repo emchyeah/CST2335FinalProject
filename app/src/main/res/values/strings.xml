@@ -30,7 +30,7 @@
     <string name="item2">This is the Earth</string>
 
     <!--  names in navigation drawer  -->
-    <string name="navTitle">Dan &amp; Meigan\'s Space Pics Application</string>
+    <string name="navTitle">Dan &amp; Meigan\'s Space Pics Application Version 1.0</string>
     <string name="actionHome">Home</string>
     <string name="actionDatePicker">Pick a date</string>
     <string name="actionExit">Exit app</string>
@@ -74,5 +74,6 @@
     Click on the Spaceship icon to go to the list of your NASA Space pictures. \n
     Click on the Earth to see cool Earth facts! </string>
     <string name="doneHelp">Done</string>
+    <string name="DatePickerPage">Date Picker</string>
 
 </resources>
