@@ -29,6 +29,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/earthFact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+
+            <TextView
                 android:id="@+id/planets"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
