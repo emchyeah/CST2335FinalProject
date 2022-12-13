@@ -42,6 +42,17 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        //fetches stored data from shared preferences
+        SharedPreferences prefs = getSharedPreferences("shared_prefs", MODE_PRIVATE);
+        String name = prefs.getString("name", "");
+        //sets the fetched data into the edittext
+        nameInput.setText(name);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         //stores the name from the EditText into shared preferences for next time the person
