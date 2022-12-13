@@ -103,17 +103,12 @@ public class BaseActivity extends AppCompatActivity
     //creates help popup window
     public void popUp(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        final View helpPopUp = getLayoutInflater().inflate(R.layout.popup, null);
-        Button popUpButton = helpPopUp.findViewById(R.id.popUpButton);
+        dialogBuilder.setTitle(R.string.helpTitle)
+                .setMessage(R.string.helpText)
+                .setPositiveButton(R.string.doneHelp, (click,arg) ->{
 
-        dialogBuilder.setView(helpPopUp);
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.show();
-
-        //closes popup window on click
-        popUpButton.setOnClickListener(click -> {
-            dialog.dismiss();
-        });
+                });
+        dialogBuilder.create().show();
 
     }
 
