@@ -70,10 +70,27 @@
     <string name="helpText">Enter your name and click the "Click!" button to go to the next page.\n
     Select a date using the date picker, and click OK. \n
     Click on the list item to see the Title, Date, and URL of the item selected. \n
-    Long press the list item to remove from the list. \n
+    Long press the list item to remove from the list. \n \n
+        Icon Instructions: \n
     Click on the Spaceship icon to go to the list of your NASA Space pictures. \n
-    Click on the Earth to see cool Earth facts! </string>
+    Click on the Earth to see cool Earth facts! \n
+    Click on the Solar System for a fun knowledge game!</string>
     <string name="doneHelp">Done</string>
     <string name="DatePickerPage">Date Picker</string>
+
+    <!-- Planets -->
+    <string name="Planets">What are the names of the Planets?</string>
+    <string name="planetPage">Let\'s talk about Planets!</string>
+    <string name="planetPageTitle">Planet Page</string>
+    <string name="answer">Click for the answer!</string>
+    <string name="Mercury">Mercury</string>
+    <string name="Venus">Venus</string>
+    <string name="Earth">Earth</string>
+    <string name="Mars">Mars</string>
+    <string name="Jupiter">Jupiter</string>
+    <string name="Saturn">Saturn</string>
+    <string name="Uranus">Uranus</string>
+    <string name="Neptune">Neptune</string>
+    <string name="planetNames">Planet Names</string>
 
 </resources>

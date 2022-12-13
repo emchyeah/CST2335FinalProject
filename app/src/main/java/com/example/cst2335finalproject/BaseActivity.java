@@ -90,6 +90,12 @@ public class BaseActivity extends AppCompatActivity
                 popUp();
                 earth.setText(null);
                 break;
+                //takes you to PlanetActivity
+            case R.id.item4:
+                earth.setText(null);
+                Intent planetIntent = new Intent(this, PlanetActivity.class);
+                startActivity(planetIntent);
+                break;
         }
         return false;
     }
@@ -98,7 +104,6 @@ public class BaseActivity extends AppCompatActivity
     public void popUp(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View helpPopUp = getLayoutInflater().inflate(R.layout.popup, null);
-        TextView popUpText = helpPopUp.findViewById(R.id.popUpText);
         Button popUpButton = helpPopUp.findViewById(R.id.popUpButton);
 
         dialogBuilder.setView(helpPopUp);
@@ -130,8 +135,14 @@ public class BaseActivity extends AppCompatActivity
             case R.id.actionExit:
                 finishAffinity();
                 break;
+            // opens help window
             case  R.id.actionHelp:
                 popUp();
+                break;
+            //opens up planets page
+            case R.id.actionPlanetPage:
+                Intent planetIntent = new Intent(this, PlanetActivity.class);
+                startActivity(planetIntent);
                 break;
         }
         return false;

@@ -69,10 +69,26 @@
     <string name="helpText">Entrez votre nom et cliquez sur le "Cliquez Sur!" bouton pour passer à la page suivante.\n
     Sélectionnez une date à l\'aide du sélecteur de date, puis cliquez sur OK. \n
     Cliquez sur l\'élément de la liste pour voir le titre, la date et l\'URL de l\'élément sélectionné. \n
-    Appuyez longuement sur l\'élément de la liste à supprimer de la liste. \n
+    Appuyez longuement sur l\'élément de la liste à supprimer de la liste. \n \n
+        Instructions d\'icône: \n
     Cliquez sur l\'icône du vaisseau spatial pour accéder à la liste de vos images spatiales de la NASA. \n
-    Cliquez sur la Terre pour voir des faits intéressants sur la Terre !</string>
+    Cliquez sur la Terre pour voir des faits intéressants sur la Terre ! \n
+    Cliquez sure le systéme solaire pour un jeu de connaissances amusant!</string>
     <string name="doneHelp">Fini</string>
     <string name="DatePickerPage">Sélecteur de Date</string>
 
+    <!-- Planets -->
+    <string name="Planets">Quel sont les noms des Planètes?</string>
+    <string name="planetPage">Parlons des Planètes!</string>
+    <string name="planetPageTitle">Page Planète</string>
+    <string name="answer">Cliquez pour la réponse!</string>
+    <string name="Mercury">Mercure</string>
+    <string name="Venus">Vénus</string>
+    <string name="Earth">La Terre</string>
+    <string name="Mars">Mars</string>
+    <string name="Jupiter">Jupiter</string>
+    <string name="Saturn">Saturne</string>
+    <string name="Uranus">Uranus</string>
+    <string name="Neptune">Neptune</string>
+    <string name="planetNames">Noms de Planète</string>
 </resources>

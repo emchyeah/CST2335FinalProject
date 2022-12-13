@@ -53,8 +53,10 @@ public class DatePicker extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datepicker);
-        setTitle(R.string.DatePickerPage);
 
+        //sets title of page
+        setTitle(R.string.DatePickerPage);
+        //loads Base activity
         Load();
 
         nameText = findViewById(R.id.name);

@@ -17,11 +17,21 @@
         android:icon="@drawable/calendar">
     </item>
 
+
+<!--  navigation to planet page  -->
+    <item
+        android:id="@+id/actionPlanetPage"
+        android:title="@string/planetPage"
+        android:orderInCategory="3"
+        android:icon="@drawable/colorlesssolarsystem">
+    </item>
+
+
 <!--  navigation to exit app  -->
     <item
         android:id="@+id/actionExit"
         android:title="@string/actionExit"
-        android:orderInCategory="3"
+        android:orderInCategory="4"
         android:icon="@drawable/exit">
     </item>
 
@@ -29,7 +39,7 @@
     <item
         android:id="@+id/actionHelp"
         android:title="@string/help"
-        android:orderInCategory="4"
+        android:orderInCategory="5"
         android:icon="@drawable/help">
     </item>
 
